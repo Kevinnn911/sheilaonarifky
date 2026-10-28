@@ -61,9 +61,15 @@
 ## Resolusi Sertifikat SSL/TLS Domain sheilaonarifky.web.id
 
 * **[PRIORITY]**: High
-* **Location**: Edge Network DNS & Vercel SSL/TLS Certificates
+* **Location**: Edge Network DNS & Konfigurasi Jam Sistem Klien (Windows Time Synchronization)
 * **Severity**: High (Security Warning on Initial Visit)
 * **Status**: Resolved
-* **Root Cause**: Kunjungan pengguna dilakukan pada jendela waktu awal propagasi DNS ketika proses *issuance* sertifikat SSL (Let's Encrypt challenge `http-01`/`dns-01`) oleh Vercel masih berlangsung, sehingga peramban menampilkan peringatan "Sambungan Anda ke situs ini tidak aman".
-* **Solution**: Menjalankan verifikasi domain `sheilaonarifky.web.id` dan `www.sheilaonarifky.web.id` melalui Vercel CLI. Sertifikat SSL telah berhasil diterbitkan (`cert_i2Gqtnm9iOnXeSsZq2vHvkda` dan `cert_wA8Io0UxWEswrtkknK8eQyfQ`) dengan enkripsi HTTPS aktif dan proteksi HSTS (`Strict-Transport-Security`).
+* **Root Cause**: 
+  1. Kunjungan awal dilakukan saat proses *issuance* sertifikat SSL Let's Encrypt di Vercel baru selesai diterbitkan pada timestamp `Oct 28 10:01:41 2026 GMT` (17:01:41 WIB).
+  2. Jam sistem pada perangkat klien (Windows) tertinggal 7 jam (`11:05 WIB` / `04:05 GMT`), sedangkan waktu riil dunia adalah `18:05 WIB` (`11:05 GMT`).
+  3. Ketidaksesuaian waktu lokal menyebabkan peramban (Chrome) mengevaluasi masa berlaku sertifikat dengan status `CERT_NOT_YET_VALID` (sertifikat dianggap berasal dari masa depan), sehingga memunculkan peringatan keamanan "Sambungan Anda ke situs ini tidak aman".
+* **Solution**: 
+  1. Sertifikat SSL aktif dan terverifikasi valid di edge network Vercel (`cert_i2Gqtnm9iOnXeSsZq2vHvkda` dan `cert_wA8Io0UxWEswrtkknK8eQyfQ`).
+  2. Mengaktifkan konfigurasi `Strict-Transport-Security` (HSTS) pada `vercel.json` dan menambahkan `<meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">` pada `index.html`.
+  3. Memberikan panduan sinkronisasi waktu Windows (*Set time automatically / Sync now*) kepada pengguna agar jam laptop kembali sesuai dengan waktu riil (`18:05 WIB`), menyelesaikan status `CERT_NOT_YET_VALID` secara permanen.
 * **Target Deadline**: Immediate (Selesai).
