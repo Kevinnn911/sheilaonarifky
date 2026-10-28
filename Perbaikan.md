@@ -57,3 +57,13 @@
   3. Menambahkan kelas utilitas `w-12 tabular-nums` pada teks penunjuk durasi waktu untuk mencegah pergeseran horizontal.
   4. Menambahkan deklarasi `transform-origin: center; will-change: transform;` pada piringan hitam (`.vinyl-spin`) untuk rotasi yang stabil tanpa subpixel jitter.
 * **Target Deadline**: Immediate (Selesai).
+
+## Resolusi Sertifikat SSL/TLS Domain sheilaonarifky.web.id
+
+* **[PRIORITY]**: High
+* **Location**: Edge Network DNS & Vercel SSL/TLS Certificates
+* **Severity**: High (Security Warning on Initial Visit)
+* **Status**: Resolved
+* **Root Cause**: Kunjungan pengguna dilakukan pada jendela waktu awal propagasi DNS ketika proses *issuance* sertifikat SSL (Let's Encrypt challenge `http-01`/`dns-01`) oleh Vercel masih berlangsung, sehingga peramban menampilkan peringatan "Sambungan Anda ke situs ini tidak aman".
+* **Solution**: Menjalankan verifikasi domain `sheilaonarifky.web.id` dan `www.sheilaonarifky.web.id` melalui Vercel CLI. Sertifikat SSL telah berhasil diterbitkan (`cert_i2Gqtnm9iOnXeSsZq2vHvkda` dan `cert_wA8Io0UxWEswrtkknK8eQyfQ`) dengan enkripsi HTTPS aktif dan proteksi HSTS (`Strict-Transport-Security`).
+* **Target Deadline**: Immediate (Selesai).
