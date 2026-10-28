@@ -1,0 +1,766 @@
+<!-- File: index.html -->
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Arsip penggemar Sheila On 7: profil personel, diskografi, pemutar musik, galeri, dan ruang komunitas.">
+  <meta name="theme-color" content="#D96B27">
+  <script>try{var t=localStorage.theme;if(t==="dark")document.documentElement.classList.add("dark")}catch(e){}</script>
+  <title>SHEILA ON 7 — The Sound of Memories (Fan Archive)</title>
+  
+  <!-- Tailwind CSS via CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Tailwind Custom Configuration -->
+  <script src="js/tailwind-config.js"></script>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500..700;1,9..144,400..600&family=Instrument+Sans:ital,wght@0,400..700;1,400..700&display=swap" rel="stylesheet">
+  
+  <!-- Lucide Icons CDN -->
+  <script src="https://unpkg.com/lucide@0.344.0"></script>
+
+  <!-- Custom Stylesheet -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body class="bg-vintage-cream text-vintage-charcoal dark:bg-vintage-darkbg dark:text-vintage-cream font-sans transition-colors duration-300 antialiased bg-grain selection:bg-vintage-accent selection:text-white">
+
+  <a href="#home" class="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[200] focus:px-4 focus:py-2 focus:rounded-lg focus:bg-vintage-action focus:text-white">Lewati ke konten utama</a>
+
+  <!-- Fullscreen Loading Screen -->
+  <div id="loading-screen" class="fixed inset-0 z-[100] bg-vintage-charcoal flex flex-col items-center justify-center text-vintage-cream transition-opacity duration-700">
+    <div class="text-center px-4">
+      <div class="font-display text-4xl sm:text-6xl tracking-widest text-vintage-accent mb-4 animate-pulse">SHEILA ON 7</div>
+      <p class="font-serif italic text-lg sm:text-xl text-neutral-400">The Sound of Memories — Fan Archive</p>
+      <div class="mt-8 flex justify-center items-center gap-1">
+        <div class="w-2 h-8 bg-vintage-accent animate-eq-1"></div>
+        <div class="w-2 h-8 bg-vintage-accent animate-eq-2"></div>
+        <div class="w-2 h-8 bg-vintage-accent animate-eq-3"></div>
+        <div class="w-2 h-8 bg-vintage-accent animate-eq-4"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Navigation Bar -->
+  <nav class="sticky top-0 z-40 backdrop-blur-md bg-vintage-cream/85 dark:bg-vintage-darkbg/85 border-b border-stone-200 dark:border-stone-800 transition-colors">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+      
+      <!-- Logo -->
+      <a href="#home" class="flex items-center gap-3 group">
+        <div class="w-10 h-10 rounded-full bg-vintage-action text-white flex items-center justify-center font-display font-bold text-xl shadow-md group-hover:rotate-12 transition-transform">
+          SO7
+        </div>
+        <div class="flex flex-col">
+          <span class="font-display text-xl sm:text-2xl font-extrabold tracking-tight text-vintage-charcoal dark:text-white">SHEILA ON 7</span>
+          <span class="text-[10px] tracking-widest text-vintage-accent uppercase font-semibold">Sound of Memories</span>
+        </div>
+      </a>
+
+      <!-- Desktop Links -->
+      <div class="hidden lg:flex items-center gap-6 text-sm font-medium">
+        <a href="#about" class="nav-link hover:text-vintage-accent transition-colors">Tentang</a>
+        <a href="#members" class="nav-link hover:text-vintage-accent transition-colors">Anggota</a>
+        <a href="#discography" class="nav-link hover:text-vintage-accent transition-colors">Diskografi</a>
+        <a href="#player-section" class="nav-link hover:text-vintage-accent transition-colors">Music Player</a>
+        <a href="#gallery" class="nav-link hover:text-vintage-accent transition-colors">Galeri</a>
+        <a href="#concerts" class="nav-link hover:text-vintage-accent transition-colors">Konser</a>
+        <a href="#community" class="nav-link hover:text-vintage-accent transition-colors">Komunitas</a>
+        <a href="#articles" class="nav-link hover:text-vintage-accent transition-colors">Artikel</a>
+      </div>
+
+      <!-- Action Buttons (Search, Dark Mode, Mobile Toggle) -->
+      <div class="flex items-center gap-3">
+        <!-- Search Trigger -->
+        <button onclick="toggleSearchModal(true)" class="p-2.5 rounded-full hover:bg-stone-200 dark:hover:bg-stone-800 transition-colors" title="Cari (Ctrl+K)" aria-label="Cari lagu, album, anggota">
+          <i data-lucide="search" class="w-5 h-5"></i>
+        </button>
+
+        <!-- Dark Mode Toggle -->
+        <button id="theme-toggle" class="p-2.5 rounded-full hover:bg-stone-200 dark:hover:bg-stone-800 transition-colors" title="Ganti Tema" aria-label="Ganti tema terang atau gelap">
+          <i data-lucide="moon" id="theme-icon-dark" class="w-5 h-5 hidden"></i>
+          <i data-lucide="sun" id="theme-icon-light" class="w-5 h-5"></i>
+        </button>
+
+        <!-- Mobile Menu Toggle -->
+        <button id="mobile-menu-btn" aria-label="Menu navigasi" aria-expanded="false" aria-controls="mobile-menu" class="lg:hidden p-2.5 rounded-lg border border-stone-300 dark:border-stone-700">
+          <i data-lucide="menu" class="w-6 h-6"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Drawer -->
+    <div id="mobile-menu" class="hidden lg:hidden border-b border-stone-200 dark:border-stone-800 bg-vintage-paper dark:bg-stone-900 px-6 py-6 space-y-4 font-medium">
+      <a href="#about" onclick="toggleMobileMenu()" class="block text-lg hover:text-vintage-accent">Tentang Band</a>
+      <a href="#members" onclick="toggleMobileMenu()" class="block text-lg hover:text-vintage-accent">Anggota</a>
+      <a href="#discography" onclick="toggleMobileMenu()" class="block text-lg hover:text-vintage-accent">Diskografi Album</a>
+      <a href="#player-section" onclick="toggleMobileMenu()" class="block text-lg hover:text-vintage-accent">Pemutar Musik</a>
+      <a href="#gallery" onclick="toggleMobileMenu()" class="block text-lg hover:text-vintage-accent">Galeri Kenangan</a>
+      <a href="#concerts" onclick="toggleMobileMenu()" class="block text-lg hover:text-vintage-accent">Jadwal & Arsip Konser</a>
+      <a href="#community" onclick="toggleMobileMenu()" class="block text-lg hover:text-vintage-accent">Ruang Komunitas</a>
+      <a href="#articles" onclick="toggleMobileMenu()" class="block text-lg hover:text-vintage-accent">Artikel & Cerita</a>
+    </div>
+  </nav>
+
+  <!-- Global Search Modal -->
+  <div id="search-modal" role="dialog" aria-modal="true" class="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm hidden flex items-start justify-center pt-20 px-4">
+    <div class="bg-vintage-cream dark:bg-stone-900 border border-stone-300 dark:border-stone-700 w-full max-w-2xl rounded-2xl shadow-2xl overflow-hidden">
+      <div class="p-4 border-b border-stone-200 dark:border-stone-800 flex items-center gap-3">
+        <i data-lucide="search" class="w-5 h-5 text-vintage-accent"></i>
+        <input type="text" id="search-input" oninput="handleGlobalSearch(this.value)" aria-label="Cari di arsip" placeholder="Cari lagu, album, mantan anggota, atau artikel..." class="w-full bg-transparent outline-none text-lg text-vintage-charcoal dark:text-white placeholder-stone-400">
+        <button onclick="toggleSearchModal(false)" aria-label="Tutup" class="p-1 rounded-md hover:bg-stone-200 dark:hover:bg-stone-800">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+      <div id="search-results" class="max-h-96 overflow-y-auto p-4 divide-y divide-stone-200 dark:divide-stone-800">
+        <p class="text-sm text-center text-stone-500 py-6">Ketik sesuatu untuk mulai mencari di arsip Sheila On 7...</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Hero Section -->
+  <section id="home" class="halftone relative pt-12 pb-20 md:py-28 overflow-hidden">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div class="grid lg:grid-cols-12 gap-12 items-center">
+        
+        <!-- Hero Text -->
+        <div class="lg:col-span-7 space-y-6 text-left">
+          <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-vintage-accent/40 bg-vintage-accent/10 text-vintage-accent text-xs font-semibold tracking-wide uppercase">
+            <i data-lucide="disc" class="w-4 h-4 animate-spin" style="animation-duration: 6s;"></i> Fan Archive & Community
+          </div>
+
+          <h1 class="font-display font-semibold text-6xl sm:text-8xl xl:text-9xl leading-[.92] tracking-tight">Sheila<br>On 7</h1>
+          <p class="font-display italic text-2xl sm:text-3xl font-medium text-vintage-accent">Melodi yang tak pernah pergi.</p>
+          <p class="text-base sm:text-lg text-stone-600 dark:text-stone-300 max-w-2xl leading-relaxed">
+            Menelusuri jejak musik, lirik penuh nostalgia, dan kisah perjalanan band legendaris asal Yogyakarta yang telah mewarnai panggung musik Indonesia sejak 1996.
+          </p>
+
+          <div class="pt-4 flex flex-wrap gap-4 items-center">
+            <a href="#player-section" class="px-7 py-3.5 rounded-xl bg-vintage-action text-white font-medium hover:bg-vintage-maroon shadow-lg hover:shadow-xl transition-all flex items-center gap-2">
+              <i data-lucide="play" class="w-4 h-4 fill-current"></i> Jelajahi Musik
+            </a>
+            <a href="#about" class="px-7 py-3.5 rounded-xl border-2 border-vintage-brown/40 dark:border-stone-700 hover:border-vintage-accent font-medium transition-all">
+              Kenali Band
+            </a>
+            <button onclick="playRandomSong()" class="px-5 py-3.5 rounded-xl bg-stone-200 dark:bg-stone-800 hover:bg-stone-300 dark:hover:bg-stone-700 text-sm font-semibold flex items-center gap-2 transition-colors">
+              <i data-lucide="shuffle" class="w-4 h-4 text-vintage-accent"></i> Putar Lagu Random
+            </button>
+          </div>
+
+          <!-- Daily Quote Widget -->
+          <div class="mt-8 p-5 rounded-2xl bg-vintage-paper dark:bg-stone-900 border border-stone-200 dark:border-stone-800 shadow-sm relative">
+            <div class="text-xs font-bold text-vintage-accent uppercase tracking-wider mb-1 flex items-center gap-2">
+              <i data-lucide="quote" class="w-3.5 h-3.5"></i> Daily Music Quote
+            </div>
+            <p id="daily-quote" class="font-serif italic text-stone-700 dark:text-stone-300 text-sm sm:text-base">
+              "Musik Sheila On 7 bukan sekadar nada, melainkan mesin waktu yang membawa kita kembali ke masa-masa paling tulus dalam hidup."
+            </p>
+          </div>
+        </div>
+
+        <!-- Hero Visual Badge & Collage -->
+        <div class="lg:col-span-5 relative lg:-translate-x-12">
+          <div class="relative mx-auto max-w-md lg:max-w-none">
+            <!-- Vintage Poster Card -->
+            <div class="poster-frame aspect-[4/5] rounded-3xl overflow-hidden relative group">
+              <img src="img/shiela-1000.webp" srcset="img/shiela-600.webp 600w, img/shiela-1000.webp 1000w" sizes="(min-width:1024px) 40vw, 90vw" width="1000" height="1000" fetchpriority="high" alt="Foto Sheila On 7" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 filter contrast-105 grayscale-[20%]">
+              <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/20 p-6 flex flex-col justify-end text-white">
+                <span class="text-xs font-mono uppercase text-vintage-accent">Est. Yogyakarta 1996</span>
+                <h3 class="font-serif text-2xl font-bold">Soundtrack Generasi 2000-an</h3>
+                <p class="text-xs text-stone-300 mt-1">Duta • Eross • Adam • Anton • Brian</p>
+              </div>
+            </div>
+
+            <!-- Kaset interaktif -->
+            <div class="cassette-drop absolute -bottom-10 -left-3 sm:-left-10 w-52 sm:w-64">
+              <button type="button" onclick="toggleAudioPlay()" aria-label="Putar atau jeda musik" class="block w-full -rotate-6 hover:rotate-0 transition-transform drop-shadow-2xl">
+                <svg viewBox="0 0 240 150" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                  <rect x="2" y="2" width="236" height="146" rx="12" fill="#5C4033" stroke="#1A1A1A" stroke-width="4"/>
+                  <rect x="18" y="16" width="204" height="68" rx="6" fill="#F4EFE6" stroke="#1A1A1A" stroke-width="3"/>
+                  <text x="30" y="43" font-family="Fraunces, serif" font-weight="700" font-size="24" fill="#1A1A1A">SHEILA ON 7</text>
+                  <rect x="30" y="51" width="180" height="5" fill="#D96B27"/>
+                  <text x="30" y="74" font-family="Instrument Sans, sans-serif" font-weight="600" font-size="12" fill="#5C4033">Fan Archive, sisi A. Sejak 1996</text>
+                  <rect x="56" y="94" width="128" height="38" rx="19" fill="#1A1A1A"/>
+                  <g class="reel"><circle cx="86" cy="113" r="14" fill="#F4EFE6"/><path d="M86 101v24M76 107l20 12M76 119l20-12" stroke="#D96B27" stroke-width="3"/></g>
+                  <g class="reel"><circle cx="154" cy="113" r="14" fill="#F4EFE6"/><path d="M154 101v24M144 107l20 12M144 119l20-12" stroke="#D96B27" stroke-width="3"/></g>
+                  <path d="M48 148l10-13h124l10 13z" fill="#1A1A1A"/>
+                  <circle cx="12" cy="12" r="2.5" fill="#1A1A1A"/><circle cx="228" cy="12" r="2.5" fill="#1A1A1A"/>
+                  <circle cx="12" cy="138" r="2.5" fill="#1A1A1A"/><circle cx="228" cy="138" r="2.5" fill="#1A1A1A"/>
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Quick Stats Band -->
+      <div class="mt-16 grid grid-cols-2 md:grid-cols-4 gap-6 pt-10 border-t border-stone-200 dark:border-stone-800">
+        <div class="text-left pl-5 py-1 border-l border-vintage-accent/50">
+          <div class="font-display text-3xl sm:text-4xl font-extrabold text-vintage-accent">1996</div>
+          <div class="text-xs sm:text-sm text-stone-500 dark:text-stone-400 mt-1">Tahun Terbentuk (Yogyakarta)</div>
+        </div>
+        <div class="text-left pl-5 py-1 border-l border-vintage-accent/50">
+          <div class="font-display text-3xl sm:text-4xl font-extrabold text-vintage-accent">9</div>
+          <div class="text-xs sm:text-sm text-stone-500 dark:text-stone-400 mt-1">Album studio dan soundtrack</div>
+        </div>
+        <div class="text-left pl-5 py-1 border-l border-vintage-accent/50">
+          <div class="font-display text-3xl sm:text-4xl font-extrabold text-vintage-accent">5</div>
+          <div class="text-xs sm:text-sm text-stone-500 dark:text-stone-400 mt-1">Personel dalam sejarah band</div>
+        </div>
+        <div class="text-left pl-5 py-1 border-l border-vintage-accent/50">
+          <div class="font-display text-3xl sm:text-4xl font-extrabold text-vintage-accent">5</div>
+          <div class="text-xs sm:text-sm text-stone-500 dark:text-stone-400 mt-1">Lagu pilihan di pemutar</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- About Section & Interactive Timeline -->
+  <section id="about" class="py-20 bg-vintage-paper dark:bg-stone-900/50 border-y border-stone-200 dark:border-stone-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="text-center max-w-3xl mx-auto mb-16">
+        <h2 class="text-xs font-bold uppercase tracking-widest text-vintage-accent mb-2">Tentang Sheila On 7</h2>
+        <h3 class="font-serif text-3xl sm:text-5xl font-bold">Perjalanan Karya & Pengaruh Musik</h3>
+        <p class="mt-4 text-stone-600 dark:text-stone-300 leading-relaxed">
+          Sheila On 7 terbentuk di Yogyakarta pada Mei 1996. Berawal dari sekumpulan anak sekolah yang menyukai musik, mereka tumbuh menjadi salah satu band pop-rock paling berpengaruh dalam sejarah industri musik Indonesia.
+        </p>
+      </div>
+
+      <!-- Feature Grid: Unique Traits -->
+      <div class="grid md:grid-cols-3 gap-8 mb-16">
+        <div class="p-6 rounded-2xl bg-vintage-cream dark:bg-stone-800 border border-stone-200 dark:border-stone-700 shadow-sm">
+          <div class="w-12 h-12 rounded-xl bg-vintage-accent/10 text-vintage-accent flex items-center justify-center mb-4">
+            <i data-lucide="feather" class="w-6 h-6"></i>
+          </div>
+          <h4 class="font-serif text-xl font-bold mb-2">Lirik Sederhana & Relatable</h4>
+          <p class="text-sm text-stone-600 dark:text-stone-300">
+            Penulisan lagu yang jujur dari Eross Candra dan rekan-rekan menangkap dinamika persahabatan, cinta pertama, dan pendewasaan tanpa kesan menggurui.
+          </p>
+        </div>
+
+        <div class="p-6 rounded-2xl bg-vintage-cream dark:bg-stone-800 border border-stone-200 dark:border-stone-700 shadow-sm">
+          <div class="w-12 h-12 rounded-xl bg-vintage-accent/10 text-vintage-accent flex items-center justify-center mb-4">
+            <i data-lucide="music" class="w-6 h-6"></i>
+          </div>
+          <h4 class="font-serif text-xl font-bold mb-2">Karakter Pop-Rock Unik</h4>
+          <p class="text-sm text-stone-600 dark:text-stone-300">
+            Kombinasi riff gitar catchy, garis bass melodius, beat drum dinamis, serta vokal hangat Duta yang ikonis melahirkan melodi yang abadi.
+          </p>
+        </div>
+
+        <div class="p-6 rounded-2xl bg-vintage-cream dark:bg-stone-800 border border-stone-200 dark:border-stone-700 shadow-sm">
+          <div class="w-12 h-12 rounded-xl bg-vintage-accent/10 text-vintage-accent flex items-center justify-center mb-4">
+            <i data-lucide="heart" class="w-6 h-6"></i>
+          </div>
+          <h4 class="font-serif text-xl font-bold mb-2">Ikatan Sheila Gank</h4>
+          <p class="text-sm text-stone-600 dark:text-stone-300">
+            Sikap rendah hati para personel serta kehangatan interaksi mereka menciptakan komunitas penggemar yang sangat loyal melintasi berbagai generasi.
+          </p>
+        </div>
+      </div>
+
+      <!-- Interactive Timeline -->
+      <div class="mt-12">
+        <h4 class="font-serif text-2xl font-bold text-center mb-10">Timeline Perjalanan Karier Band</h4>
+        <div class="relative border-l-2 border-vintage-accent/40 ml-4 md:ml-32 space-y-10">
+          
+          <!-- Timeline Item 1 -->
+          <div class="relative pl-8 md:pl-10 group">
+            <div class="absolute -left-3 top-1 w-6 h-6 rounded-full bg-vintage-accent border-4 border-vintage-cream dark:border-stone-900"></div>
+            <div class="font-mono text-sm font-bold text-vintage-accent mb-1">1996 — Awal Terbentuk</div>
+            <h5 class="font-serif text-lg font-bold">Lahir di Yogyakarta</h5>
+            <p class="text-sm text-stone-600 dark:text-stone-400 mt-1 max-w-2xl">
+              Memulai perjalanan dengan nama "Sheila Gank", beranggotakan Duta, Eross, Adam, Sakti, dan Anton yang sering latihan bersama di studio musik lokal Yogyakarta.
+            </p>
+          </div>
+
+          <!-- Timeline Item 2 -->
+          <div class="relative pl-8 md:pl-10 group">
+            <div class="absolute -left-3 top-1 w-6 h-6 rounded-full bg-vintage-accent border-4 border-vintage-cream dark:border-stone-900"></div>
+            <div class="font-mono text-sm font-bold text-vintage-accent mb-1">1999 — Album Debut Ikonik</div>
+            <h5 class="font-serif text-lg font-bold">Fenomena Album Debut Self-Titled</h5>
+            <p class="text-sm text-stone-600 dark:text-stone-400 mt-1 max-w-2xl">
+              Merilis album "Sheila On 7" di bawah naungan Sony Music Indonesia. Lagu-lagu seperti "Dan", "Kita", dan "Anugerah Terindah Yang Pernah Kumiliki" meledak di pasaran.
+            </p>
+          </div>
+
+          <!-- Timeline Item 3 -->
+          <div class="relative pl-8 md:pl-10 group">
+            <div class="absolute -left-3 top-1 w-6 h-6 rounded-full bg-vintage-accent border-4 border-vintage-cream dark:border-stone-900"></div>
+            <div class="font-mono text-sm font-bold text-vintage-accent mb-1">2000 — Rekor Multi-Platinum</div>
+            <h5 class="font-serif text-lg font-bold">Kisah Klasik Untuk Masa Depan</h5>
+            <p class="text-sm text-stone-600 dark:text-stone-400 mt-1 max-w-2xl">
+              Album kedua berhasil menembus penjualan lebih dari 1 juta kopi, mencatat rekor bersejarah dengan hits seperti "Sephia" dan "Sahabat Sejati".
+            </p>
+          </div>
+
+          <!-- Timeline Item 4 -->
+          <div class="relative pl-8 md:pl-10 group">
+            <div class="absolute -left-3 top-1 w-6 h-6 rounded-full bg-vintage-accent border-4 border-vintage-cream dark:border-stone-900"></div>
+            <div class="font-mono text-sm font-bold text-vintage-accent mb-1">2004 — Transformasi Formasi</div>
+            <h5 class="font-serif text-lg font-bold">Pejantan Tangguh & Brian Bergabung</h5>
+            <p class="text-sm text-stone-600 dark:text-stone-400 mt-1 max-w-2xl">
+              Pasca penggantian drummer Anton, Brian Kresna Putro bergabung mendukung posisi drum pada album Pejantan Tangguh hingga album-album berikutnya.
+            </p>
+          </div>
+
+          <!-- Timeline Item 5 -->
+          <div class="relative pl-8 md:pl-10 group">
+            <div class="absolute -left-3 top-1 w-6 h-6 rounded-full bg-vintage-accent border-4 border-vintage-cream dark:border-stone-900"></div>
+            <div class="font-mono text-sm font-bold text-vintage-accent mb-1">2014 - Sekarang — Jalur Independen & Konser Tur</div>
+            <h5 class="font-serif text-lg font-bold">Musim Yang Baik & Konser Tunggal Reuni</h5>
+            <p class="text-sm text-stone-600 dark:text-stone-400 mt-1 max-w-2xl">
+              Merilis album "Musim Yang Baik" (2014) dan sukses menggelar tur konser tunggal berskala besar "Tunggu Aku Di..." di berbagai kota Indonesia.
+            </p>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Band Members Section -->
+  <section id="members" class="py-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="text-center max-w-3xl mx-auto mb-16">
+        <h2 class="text-xs font-bold uppercase tracking-widest text-vintage-accent mb-2">Profil Personel</h2>
+        <h3 class="font-serif text-3xl sm:text-5xl font-bold">Musisi Di Balik Karya</h3>
+        <p class="mt-4 text-stone-600 dark:text-stone-300">
+          Mengenal lebih dekat para personel aktif serta mantan anggota yang turut mengukir sejarah perjalanan musik Sheila On 7.
+        </p>
+      </div>
+
+      <!-- Active Members -->
+      <div class="mb-14">
+        <h4 class="text-sm font-bold uppercase tracking-wider text-stone-400 mb-6 flex items-center gap-2">
+          <span class="w-2.5 h-2.5 rounded-full bg-green-500"></span> Personel Aktif Saat Ini
+        </h4>
+        <div class="grid md:grid-cols-3 gap-8" id="active-members-grid">
+          <!-- Populated by JavaScript -->
+        </div>
+      </div>
+
+      <!-- Former Members Section -->
+      <div>
+        <h4 class="text-sm font-bold uppercase tracking-wider text-stone-400 mb-6 flex items-center gap-2">
+          <span class="w-2.5 h-2.5 rounded-full bg-amber-500"></span> Mantan Anggota Dalam Sejarah
+        </h4>
+        <div class="grid md:grid-cols-2 gap-8" id="former-members-grid">
+          <!-- Populated by JavaScript -->
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Member Bio Modal -->
+  <div id="member-modal" role="dialog" aria-modal="true" class="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm hidden flex items-center justify-center p-4">
+    <div class="bg-vintage-cream dark:bg-stone-900 border border-stone-300 dark:border-stone-700 w-full max-w-lg rounded-2xl shadow-2xl p-6 relative">
+      <button onclick="closeMemberModal()" aria-label="Tutup" class="absolute top-4 right-4 p-2 rounded-full hover:bg-stone-200 dark:hover:bg-stone-800">
+        <i data-lucide="x" class="w-5 h-5"></i>
+      </button>
+      <div id="member-modal-content">
+        <!-- Dynamic content injected via JS -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Discography Section -->
+  <section id="discography" class="py-20 bg-vintage-paper dark:bg-stone-900/50 border-y border-stone-200 dark:border-stone-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
+        <div>
+          <h2 class="text-xs font-bold uppercase tracking-widest text-vintage-accent mb-2">Diskografi Lengkap</h2>
+          <h3 class="font-serif text-3xl sm:text-5xl font-bold">Album Studio (1999 — 2014)</h3>
+        </div>
+
+        <!-- Filters & Sorting -->
+        <div class="flex flex-wrap items-center gap-3">
+          <button onclick="filterAlbums('all')" class="album-filter-btn px-4 py-2 rounded-xl text-xs font-semibold bg-vintage-action text-white" data-filter="all">Semua</button>
+          <button onclick="filterAlbums('1990s')" class="album-filter-btn px-4 py-2 rounded-xl text-xs font-semibold bg-stone-200 dark:bg-stone-800 hover:bg-stone-300" data-filter="1990s">1990-an</button>
+          <button onclick="filterAlbums('2000s')" class="album-filter-btn px-4 py-2 rounded-xl text-xs font-semibold bg-stone-200 dark:bg-stone-800 hover:bg-stone-300" data-filter="2000s">2000-an</button>
+          <button onclick="filterAlbums('2010s')" class="album-filter-btn px-4 py-2 rounded-xl text-xs font-semibold bg-stone-200 dark:bg-stone-800 hover:bg-stone-300" data-filter="2010s">2010-an</button>
+        </div>
+      </div>
+
+      <!-- Album Grid -->
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8" id="album-grid">
+        <!-- Rendered dynamically -->
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Tracklist Modal -->
+  <div id="album-modal" role="dialog" aria-modal="true" class="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm hidden flex items-center justify-center p-4">
+    <div class="bg-vintage-cream dark:bg-stone-900 border border-stone-300 dark:border-stone-700 w-full max-w-xl rounded-2xl shadow-2xl p-6 relative">
+      <button onclick="closeAlbumModal()" aria-label="Tutup" class="absolute top-4 right-4 p-2 rounded-full hover:bg-stone-200 dark:hover:bg-stone-800">
+        <i data-lucide="x" class="w-5 h-5"></i>
+      </button>
+      <div id="album-modal-content">
+        <!-- Dynamic content injected via JS -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Music Player Section -->
+  <section id="player-section" class="py-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="text-center max-w-3xl mx-auto mb-12">
+        <h2 class="text-xs font-bold uppercase tracking-widest text-vintage-accent mb-2">Interactive Music Player</h2>
+        <h3 class="font-serif text-3xl sm:text-5xl font-bold">Pemutar Musik & Rekomendasi</h3>
+        <p class="mt-3 text-stone-600 dark:text-stone-300 text-sm">
+          Nikmati simulasi audio melodi ikonis atau akses langsung ke platform streaming resmi Spotify & YouTube Music.
+        </p>
+      </div>
+
+      <!-- Mood Playlist Selector Generator -->
+      <div class="mb-10 p-6 rounded-2xl bg-vintage-paper dark:bg-stone-900 border border-stone-200 dark:border-stone-800">
+        <div class="text-center mb-4">
+          <span class="text-xs font-bold uppercase tracking-wider text-vintage-accent">Mood Playlist Selector</span>
+          <h4 class="font-serif text-xl font-bold mt-1">Pilih Suasana Hati Anda</h4>
+        </div>
+        <div class="flex flex-wrap justify-center gap-3">
+          <button onclick="selectMood('Nostalgia')" aria-pressed="false" class="mood-btn px-5 py-2.5 rounded-xl border border-stone-300 dark:border-stone-700 text-sm font-semibold hover:border-vintage-accent transition-all" data-mood="Nostalgia">Nostalgia</button>
+          <button onclick="selectMood('Bahagia')" aria-pressed="false" class="mood-btn px-5 py-2.5 rounded-xl border border-stone-300 dark:border-stone-700 text-sm font-semibold hover:border-vintage-accent transition-all" data-mood="Bahagia">Bahagia</button>
+          <button onclick="selectMood('Sedih')" aria-pressed="false" class="mood-btn px-5 py-2.5 rounded-xl border border-stone-300 dark:border-stone-700 text-sm font-semibold hover:border-vintage-accent transition-all" data-mood="Sedih">Sedih</button>
+          <button onclick="selectMood('Semangat')" aria-pressed="false" class="mood-btn px-5 py-2.5 rounded-xl border border-stone-300 dark:border-stone-700 text-sm font-semibold hover:border-vintage-accent transition-all" data-mood="Semangat">Semangat</button>
+          <button onclick="selectMood('Santai')" aria-pressed="false" class="mood-btn px-5 py-2.5 rounded-xl border border-stone-300 dark:border-stone-700 text-sm font-semibold hover:border-vintage-accent transition-all" data-mood="Santai">Santai</button>
+        </div>
+      </div>
+
+      <!-- Main Player Interface Grid -->
+      <div class="grid lg:grid-cols-12 gap-8 items-center bg-vintage-paper dark:bg-stone-900 p-6 sm:p-10 rounded-3xl border border-stone-200 dark:border-stone-800 shadow-xl">
+        
+        <!-- Player Vinyl Graphic -->
+        <div class="lg:col-span-5 flex justify-center">
+          <div class="relative w-64 h-64 sm:w-80 sm:h-80 rounded-full border-8 border-stone-900 bg-stone-950 shadow-2xl flex items-center justify-center p-3 group">
+            <div id="vinyl-disc" class="w-full h-full rounded-full border-4 border-stone-800 bg-gradient-to-tr from-stone-900 via-stone-800 to-stone-950 flex items-center justify-center vinyl-spin">
+              <img id="player-cover" src="https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&w=600&q=80" alt="Track Cover" class="w-32 h-32 sm:w-40 sm:h-40 rounded-full object-cover border-4 border-stone-900 shadow-md">
+            </div>
+            <div class="absolute w-6 h-6 rounded-full bg-vintage-cream dark:bg-stone-900 border-2 border-stone-800"></div>
+          </div>
+        </div>
+
+        <!-- Controls & Playlist -->
+        <div class="lg:col-span-7 space-y-6">
+          
+          <div>
+            <span id="player-album-tag" class="text-xs font-mono uppercase tracking-widest text-vintage-accent">Album Sheila On 7 (1999)</span>
+            <h3 id="player-title" class="font-serif text-3xl font-bold text-vintage-charcoal dark:text-white mt-1">Dan</h3>
+            <p id="player-artist" class="text-sm text-stone-500 dark:text-stone-400">Sheila On 7 • Audio Resmi</p>
+          </div>
+
+          <!-- Animated Visualizer & Progress -->
+          <div class="space-y-2">
+            <div class="flex items-center justify-between text-xs font-mono text-stone-500 h-6">
+              <span id="current-time" class="w-12 text-left tabular-nums">0:00</span>
+              <div class="eq-bars" aria-hidden="true">
+                <span class="bg-vintage-accent animate-eq-1"></span>
+                <span class="bg-vintage-accent animate-eq-2"></span>
+                <span class="bg-vintage-accent animate-eq-3"></span>
+                <span class="bg-vintage-accent animate-eq-4"></span>
+              </div>
+              <span id="total-duration" class="w-12 text-right tabular-nums">0:00</span>
+            </div>
+            
+            <input type="range" id="seek-bar" value="0" max="100" oninput="seekTo(this.value)" aria-label="Posisi lagu" class="w-full accent-vintage-accent cursor-pointer">
+          </div>
+
+          <!-- Buttons Control -->
+          <div class="flex items-center justify-between pt-2">
+            <button onclick="prevTrack()" aria-label="Lagu sebelumnya" class="p-3 rounded-full hover:bg-stone-200 dark:hover:bg-stone-800 transition-colors">
+              <i data-lucide="skip-back" class="w-6 h-6"></i>
+            </button>
+
+            <button onclick="toggleAudioPlay()" id="main-play-btn" aria-label="Putar" class="w-16 h-16 rounded-full bg-vintage-action text-white flex items-center justify-center shadow-lg hover:scale-105 transition-all">
+              <i data-lucide="play" class="w-7 h-7 fill-current ml-1" id="main-play-icon"></i>
+            </button>
+
+            <button onclick="nextTrack()" aria-label="Lagu berikutnya" class="p-3 rounded-full hover:bg-stone-200 dark:hover:bg-stone-800 transition-colors">
+              <i data-lucide="skip-forward" class="w-6 h-6"></i>
+            </button>
+          </div>
+
+          <!-- Interactive Playlist List -->
+          <div class="mt-6 border-t border-stone-200 dark:border-stone-800 pt-4">
+            <div class="text-xs font-bold uppercase text-stone-400 mb-3">Daftar Lagu Hits Pilihan</div>
+            <div class="max-h-48 overflow-y-auto space-y-1" id="playlist-container">
+              <!-- Rendered via JS -->
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Sticky Mini Player Bar (Fixed Bottom) -->
+  <div id="mini-player" class="fixed bottom-0 inset-x-0 z-30 bg-vintage-cream/95 dark:bg-stone-900/95 border-t border-stone-300 dark:border-stone-800 shadow-2xl px-4 py-3 backdrop-blur-md flex items-center justify-between transition-transform duration-300">
+    <div class="flex items-center gap-3">
+      <img id="mini-cover" alt="" src="https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&w=200&q=80" class="w-10 h-10 rounded-lg object-cover">
+      <div class="hidden sm:block">
+        <div id="mini-title" class="text-sm font-bold truncate max-w-[150px]">Dan</div>
+        <div id="mini-artist" class="text-xs text-stone-500">Sheila On 7</div>
+      </div>
+    </div>
+
+    <div class="flex items-center gap-4">
+      <button onclick="prevTrack()" aria-label="Lagu sebelumnya" class="p-1.5 text-stone-600 dark:text-stone-300">
+        <i data-lucide="skip-back" class="w-5 h-5"></i>
+      </button>
+      <button onclick="toggleAudioPlay()" id="mini-play-btn" aria-label="Putar" class="p-2 rounded-full bg-vintage-action text-white">
+        <i data-lucide="play" class="w-4 h-4 fill-current" id="mini-play-icon"></i>
+      </button>
+      <button onclick="nextTrack()" aria-label="Lagu berikutnya" class="p-1.5 text-stone-600 dark:text-stone-300">
+        <i data-lucide="skip-forward" class="w-5 h-5"></i>
+      </button>
+    </div>
+  </div>
+
+  <!-- Gallery Section -->
+  <section id="gallery" class="py-20 bg-vintage-paper dark:bg-stone-900/50 border-y border-stone-200 dark:border-stone-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
+        <div>
+          <h2 class="text-xs font-bold uppercase tracking-widest text-vintage-accent mb-2">Galeri Visual</h2>
+          <h3 class="font-serif text-3xl sm:text-5xl font-bold">Arsip Panggung & Kenangan</h3>
+        </div>
+
+        <div class="flex flex-wrap gap-2">
+          <button onclick="filterGallery('all')" class="gallery-filter-btn px-4 py-2 rounded-xl text-xs font-semibold bg-vintage-action text-white" data-cat="all">Semua</button>
+          <button onclick="filterGallery('concert')" class="gallery-filter-btn px-4 py-2 rounded-xl text-xs font-semibold bg-stone-200 dark:bg-stone-800" data-cat="concert">Konser</button>
+          <button onclick="filterGallery('behind')" class="gallery-filter-btn px-4 py-2 rounded-xl text-xs font-semibold bg-stone-200 dark:bg-stone-800" data-cat="behind">Belakang Layar</button>
+          <button onclick="filterGallery('poster')" class="gallery-filter-btn px-4 py-2 rounded-xl text-xs font-semibold bg-stone-200 dark:bg-stone-800" data-cat="poster">Poster & Merchandise</button>
+        </div>
+      </div>
+
+      <!-- Masonry-style Grid -->
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6" id="gallery-grid">
+        <!-- Dynamic Gallery Items -->
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Lightbox Modal -->
+  <div id="lightbox-modal" role="dialog" aria-modal="true" class="fixed inset-0 z-50 bg-black/90 hidden flex items-center justify-center p-4">
+    <button onclick="closeLightbox()" aria-label="Tutup" class="absolute top-6 right-6 text-white p-2">
+      <i data-lucide="x" class="w-8 h-8"></i>
+    </button>
+    <div class="max-w-4xl text-center">
+      <img id="lightbox-img" alt="" src="" class="max-h-[80vh] mx-auto rounded-xl shadow-2xl border-4 border-stone-800">
+      <p id="lightbox-caption" class="text-stone-300 font-serif italic mt-4 text-lg"></p>
+    </div>
+  </div>
+
+  <!-- Concerts Section -->
+  <section id="concerts" class="py-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="text-center max-w-3xl mx-auto mb-14">
+        <h2 class="text-xs font-bold uppercase tracking-widest text-vintage-accent mb-2">Informasi Pertunjukan</h2>
+        <h3 class="font-serif text-3xl sm:text-5xl font-bold">Jadwal & Arsip Tur Concert</h3>
+      </div>
+
+      <!-- Verified Notice Box -->
+      <div class="mb-12 p-6 rounded-2xl bg-amber-500/10 border border-amber-500/30 text-amber-900 dark:text-amber-200 flex items-start gap-4">
+        <i data-lucide="info" class="w-6 h-6 flex-shrink-0 text-amber-600 dark:text-amber-400"></i>
+        <div class="text-sm leading-relaxed">
+          <strong class="font-semibold block mb-1">Status Informasi Acara Resmi:</strong>
+          Saat ini <em>belum ada jadwal tur konser resmi baru yang terkonfirmasi</em> untuk periode bulan ini. Harap berhati-hati terhadap penipuan tiket konser ilegal. Dapatkan update jadwal valid hanya melalui akun resmi Sheila On 7.
+        </div>
+      </div>
+
+      <!-- Past Concert Archive -->
+      <h4 class="font-serif text-2xl font-bold mb-6">Arsip Panggung Bersejarah & Tur Besar</h4>
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        
+        <div class="p-6 rounded-2xl bg-vintage-paper dark:bg-stone-900 border border-stone-200 dark:border-stone-800">
+          <div class="text-xs font-mono font-bold text-vintage-accent">2023 • Stadion Kridosono</div>
+          <h5 class="font-serif text-xl font-bold mt-1">Tunggu Aku Di Jakarta</h5>
+          <p class="text-xs text-stone-500 dark:text-stone-400 mt-2">
+            Konser tunggal emosional yang dihadiri puluhan ribu Sheila Gank lintas generasi dengan 25+ lagu hits.
+          </p>
+          <button onclick="saveConcertReminder('Tunggu Aku Di Jakarta', this)" class="mt-4 inline-flex items-center gap-2 text-xs font-bold text-vintage-accent hover:underline">
+            <i data-lucide="bookmark" class="w-4 h-4"></i> Simpan Arsip Kenangan
+          </button>
+        </div>
+
+        <div class="p-6 rounded-2xl bg-vintage-paper dark:bg-stone-900 border border-stone-200 dark:border-stone-800">
+          <div class="text-xs font-mono font-bold text-vintage-accent">2024 • Tur 5 Kota Besar</div>
+          <h5 class="font-serif text-xl font-bold mt-1">Tunggu Aku Di Tur Stadion</h5>
+          <p class="text-xs text-stone-500 dark:text-stone-400 mt-2">
+            Rangkaian konser megah menyapa pendengar setia di Samarinda, Makassar, Pekanbaru, Medan, dan Bandung.
+          </p>
+          <button onclick="saveConcertReminder('Tunggu Aku Di Tur', this)" class="mt-4 inline-flex items-center gap-2 text-xs font-bold text-vintage-accent hover:underline">
+            <i data-lucide="bookmark" class="w-4 h-4"></i> Simpan Arsip Kenangan
+          </button>
+        </div>
+
+        <div class="p-6 rounded-2xl bg-vintage-paper dark:bg-stone-900 border border-stone-200 dark:border-stone-800">
+          <div class="text-xs font-mono font-bold text-vintage-accent">Arsip Festival</div>
+          <h5 class="font-serif text-xl font-bold mt-1">Panggung Utama Festival Musik</h5>
+          <p class="text-xs text-stone-500 dark:text-stone-400 mt-2">
+            Penampilan penutup ikonis di berbagai festival musik terbesar tanah air seperti Soundrenaline & Synchronize Fest.
+          </p>
+          <button onclick="saveConcertReminder('Panggung Festival', this)" class="mt-4 inline-flex items-center gap-2 text-xs font-bold text-vintage-accent hover:underline">
+            <i data-lucide="bookmark" class="w-4 h-4"></i> Simpan Arsip Kenangan
+          </button>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Community & Memory Wall -->
+  <section id="community" class="py-20 bg-vintage-paper dark:bg-stone-900/50 border-y border-stone-200 dark:border-stone-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="grid lg:grid-cols-12 gap-12">
+        
+        <!-- Left: Fan Memory Form & Poll -->
+        <div class="lg:col-span-5 space-y-8">
+          <div>
+            <h2 class="text-xs font-bold uppercase tracking-widest text-vintage-accent mb-2">Ruang Penggemar</h2>
+            <h3 class="font-serif text-3xl font-bold">Bagikan Kenangan Musikmu</h3>
+            <p class="text-sm text-stone-600 dark:text-stone-300 mt-2 leading-relaxed">
+              Tuliskan cerita pribadi Anda bersama lagu-lagu Sheila On 7. Pesan akan tersimpan secara lokal di browser Anda.
+            </p>
+          </div>
+
+          <!-- Memory Form -->
+          <form id="memory-form" onsubmit="handleMemorySubmit(event)" class="space-y-4 bg-vintage-cream dark:bg-stone-800 p-6 rounded-2xl border border-stone-200 dark:border-stone-700 shadow-sm">
+            <div>
+              <label for="memory-name" class="block text-xs font-bold uppercase text-stone-500 mb-1">Nama / Panggilan</label>
+              <input type="text" id="memory-name" required maxlength="40" autocomplete="nickname" placeholder="Contoh: Sheila Gank Jogja" class="w-full px-4 py-2.5 rounded-xl border border-stone-300 dark:border-stone-700 bg-transparent outline-none focus:border-vintage-accent">
+            </div>
+
+            <div>
+              <label for="memory-song" class="block text-xs font-bold uppercase text-stone-500 mb-1">Lagu Berkesan</label>
+              <input type="text" id="memory-song" required maxlength="60" placeholder="Contoh: Sahabat Sejati" class="w-full px-4 py-2.5 rounded-xl border border-stone-300 dark:border-stone-700 bg-transparent outline-none focus:border-vintage-accent">
+            </div>
+
+            <div>
+              <label for="memory-text" class="block text-xs font-bold uppercase text-stone-500 mb-1">Cerita Singkat / Kenangan</label>
+              <textarea id="memory-text" required maxlength="280" rows="3" placeholder="Tuliskan kenangan indah masa sekolah atau momen berharga bersama lagu ini..." class="w-full px-4 py-2.5 rounded-xl border border-stone-300 dark:border-stone-700 bg-transparent outline-none focus:border-vintage-accent"></textarea>
+            </div>
+
+            <button type="submit" class="w-full py-3 rounded-xl bg-vintage-action text-white font-semibold hover:bg-vintage-maroon transition-colors shadow-md">
+              Kirim Cerita Kenangan
+            </button>
+          </form>
+
+          <!-- Interactive Song Poll -->
+          <div class="bg-vintage-cream dark:bg-stone-800 p-6 rounded-2xl border border-stone-200 dark:border-stone-700">
+            <h4 class="font-serif text-lg font-bold mb-3 flex items-center gap-2">
+              <i data-lucide="vote" class="w-5 h-5 text-vintage-accent"></i> Polling Lagu Terfavorit
+            </h4>
+            <div class="space-y-3 text-sm" id="poll-options">
+              <!-- Rendered dynamically -->
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: Memory Board Cards -->
+        <div class="lg:col-span-7">
+          <h4 class="font-serif text-2xl font-bold mb-6 flex items-center justify-between">
+            <span>Dinding Kenangan Penggemar</span>
+            <span class="text-xs font-sans font-normal text-stone-400">(Tersimpan di browser ini)</span>
+          </h4>
+
+          <div class="grid sm:grid-cols-2 gap-4" id="memory-board">
+            <!-- Dynamic Memory Cards -->
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Articles & Stories Section -->
+  <section id="articles" class="py-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="text-center max-w-3xl mx-auto mb-14">
+        <h2 class="text-xs font-bold uppercase tracking-widest text-vintage-accent mb-2">Arsip Pembahasan</h2>
+        <h3 class="font-serif text-3xl sm:text-5xl font-bold">Artikel & Catatan Musik</h3>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-8" id="article-grid">
+        <!-- Injected via JS -->
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Article Reader Modal -->
+  <div id="article-modal" role="dialog" aria-modal="true" class="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm hidden flex items-center justify-center p-4">
+    <div class="bg-vintage-cream dark:bg-stone-900 border border-stone-300 dark:border-stone-700 w-full max-w-2xl rounded-2xl shadow-2xl p-6 sm:p-8 relative max-h-[85vh] overflow-y-auto">
+      <button onclick="closeArticleModal()" aria-label="Tutup" class="absolute top-4 right-4 p-2 rounded-full hover:bg-stone-200 dark:hover:bg-stone-800">
+        <i data-lucide="x" class="w-5 h-5"></i>
+      </button>
+      <div id="article-modal-content">
+        <!-- Rendered via JS -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="bg-vintage-charcoal text-stone-400 py-16 border-t border-stone-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid md:grid-cols-12 gap-8 mb-12">
+        
+        <div class="md:col-span-6 space-y-4">
+          <div class="font-display text-2xl font-bold text-white tracking-wider">SHEILA ON 7</div>
+          <p class="text-xs text-stone-400 max-w-sm leading-relaxed">
+            Situs ini dirancang khusus sebagai bentuk apresiasi penggemar independen (Fan Archive) untuk merayakan perjalanan musik Sheila On 7. Hak cipta lagu dan merek sepenuhnya milik musisi dan label resmi.
+          </p>
+        </div>
+
+        <div class="md:col-span-3 space-y-2 text-xs">
+          <div class="text-white font-bold uppercase mb-3">Tautan Navigasi</div>
+          <div><a href="#about" class="hover:text-white transition-colors">Sejarah Band</a></div>
+          <div><a href="#discography" class="hover:text-white transition-colors">Diskografi Album</a></div>
+          <div><a href="#player-section" class="hover:text-white transition-colors">Pemutar Musik</a></div>
+          <div><a href="#community" class="hover:text-white transition-colors">Dinding Kenangan</a></div>
+        </div>
+
+        <div class="md:col-span-3 space-y-2 text-xs">
+          <div class="text-white font-bold uppercase mb-3">Platform Resmi</div>
+          <div><a href="https://open.spotify.com" target="_blank" rel="noopener" class="hover:text-white transition-colors flex items-center gap-1.5"><i data-lucide="external-link" class="w-3.5 h-3.5"></i> Spotify Resmi</a></div>
+          <div><a href="https://music.youtube.com" target="_blank" rel="noopener" class="hover:text-white transition-colors flex items-center gap-1.5"><i data-lucide="external-link" class="w-3.5 h-3.5"></i> YouTube Music</a></div>
+          <div><a href="https://instagram.com" target="_blank" rel="noopener" class="hover:text-white transition-colors flex items-center gap-1.5"><i data-lucide="instagram" class="w-3.5 h-3.5"></i> Instagram Sheila On 7</a></div>
+        </div>
+
+      </div>
+
+      <div class="pt-8 border-t border-stone-800 text-center text-xs text-stone-500 flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div>&copy; SHEILA ON 7 — The Sound of Memories (Fan Archive). Made with passion.</div>
+        <button onclick="scrollToTop()" class="inline-flex items-center gap-1.5 text-vintage-accent hover:underline">
+          <i data-lucide="arrow-up" class="w-4 h-4"></i> Kembali ke atas
+        </button>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Application Data and Logic -->
+  <script src="js/data.js"></script>
+  <script src="js/ux.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
