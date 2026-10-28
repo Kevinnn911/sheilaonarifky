@@ -128,3 +128,18 @@
 * **Impact**:
   - Tampilan pemutar audio menjadi stabil, mulus, dan tidak bergoyang sama sekali saat lagu diputar.
   - Performa rendering meningkat karena eliminasi reflow layout secara terus-menerus.
+
+## Deployment Produksi Vercel, Konfigurasi Custom Domain, dan Repositori GitHub
+
+* **[DONE]**
+* **Status**: Selesai (Completed)
+* **Feature**: Deployment Cloud Vercel, Domain Binding, dan Sinkronisasi Repositori Git
+* **Technical Implementation**:
+  - Melakukan inisialisasi repositori Git lokal pada direktori `Arifki/` dengan branch utama `main` dan kompilasi commit seluruh aset statis, skrip modular, serta berkas media audio.
+  - Membuat dan menghubungkan remote repositori publik GitHub `https://github.com/Kevinnn911/sheilaonarifky` dan berhasil melakukan *push* sinkronisasi branch `main`.
+  - Menerbitkan (*deploy*) proyek ke Vercel Production dengan nama proyek `sheilaonarifky` menghasilkan live URL `https://sheilaonarifky.vercel.app`.
+  - Mendaftarkan dan menautkan domain kustom `sheilaonarifky.web.id` ke proyek Vercel dengan konfigurasi DNS record `A` (`76.76.21.21`).
+* **Impact**:
+  - Aplikasi web arsip musik Sheila On 7 kini aktif secara global di jaringan edge Vercel dengan performa CDN berkecepatan tinggi.
+  - Kode sumber tersimpan dan terkelola secara aman di GitHub.
+  - Domain kustom `sheilaonarifky.web.id` siap digunakan setelah propagasi DNS selesai.
